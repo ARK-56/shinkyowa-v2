@@ -167,6 +167,11 @@
                                                 src="{{ env('IMAGE_API_URL') . 'images/flags/pakistan.avif' }}"
                                                 loading="lazy" alt="country">Pakistan({{ $country['Pakistan'] }})</a>
                         </li>
+                        <li><a href="/country/Antigua and Barbuda"><img
+                                                src="{{ env('IMAGE_API_URL') . 'images/flags/antigua and barbuda.avif' }}"
+                                                loading="lazy" alt="country">Antigua and
+                                        Barbuda({{ $country['Antigua and Barbuda'] }})</a>
+                        </li>
                 </ul>
         </div>
 </aside>
