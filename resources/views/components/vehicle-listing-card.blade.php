@@ -22,7 +22,9 @@
             </div>
         </div>
         <div class="action">
-            <p>{{ $symbol }}{{ number_format($fob) }} {{ $code }}</p>
+            @if($fob != 0)
+                <p>{{ $symbol }}{{ number_format($fob) }} {{ $code }}</p>
+            @endif
             <button>Get Quote</button>
         </div>
     </div>
