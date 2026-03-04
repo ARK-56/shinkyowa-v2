@@ -29,10 +29,14 @@ class WebStockPageController extends Controller
     {
         $queryParams = request()->except('page');
 
-        $make = $request->input('make');
-        $model = $request->input('model');
         $stock = $request->input('stock');
 
+        $make = $request->input('make');
+        $model = $request->input('model');
+        $bodyType = $request->input('bodyType');
+        $fuelType = $request->input('fuelType');
+        $mileage = $request->input('mileage');
+        $country = $request->input('country');
         $category = $request->input('category');
         $fueltype = $request->input('fueltype');
         $transmission = $request->input('transmission');
@@ -51,6 +55,30 @@ class WebStockPageController extends Controller
         }
         if ($stock) {
             $query->where('sid', $stock);
+        }
+        if ($bodyType) {
+            $query->whereHas('bodyType', function ($r) use ($bodyType) {
+                $r->where('name', $bodyType);
+            });
+        }
+        if ($mileage) {
+            if ($mileage == "under 50,000") {
+                $query->where('mileage', '<', 50000);
+            }
+            if ($mileage == "under 100,000") {
+                $query->where('mileage', '<', 100000);
+            }
+            if ($mileage == "under 200,000") {
+                $query->where('mileage', '<', 200000);
+            }
+            if ($mileage == "under 300,000") {
+                $query->where('mileage', '<', 300000);
+            }
+        }
+        if ($country) {
+            $query->whereHas('country', function ($r) use ($country) {
+                $r->where('name', $country);
+            });
         }
         if ($category) {
             if ($category !== 'all') {
@@ -151,38 +179,6 @@ class WebStockPageController extends Controller
         $vehicles = $query->orderBy('id', 'desc')->paginate(8);
 
         return view('web.stock', compact('vehicles'));
-    }
-
-    public function getModels(Request $request)
-    {
-        $make = $request->input('make');
-        $models = Stock::whereHas('make', function ($r) use ($make) {
-            $r->where('name', $make);
-        })->distinct()->pluck('model');
-
-        return response()->json($models);
-    }
-
-    public function getFueltype(Request $request)
-    {
-        $model = $request->input('model');
-        $result = [];
-        $fueltype = Stock::where('model', $model)->pluck('fuel');
-        foreach ($fueltype as $fuel) {
-            if (in_array($fueltype, $fuel) == null) {
-                array_push($result, $fueltype);
-            }
-        }
-
-        return response()->json($result);
-    }
-
-    public function getYears(Request $request)
-    {
-        $model = $request->input('model');
-        $result = Stock::where('model', $model)->orderBy('year', 'ASC')->distinct()->pluck('year');
-
-        return response()->json($result);
     }
 
     public function storeInquiry(WebInquiryRequest $request)
