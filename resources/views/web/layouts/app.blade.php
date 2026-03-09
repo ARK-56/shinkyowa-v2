@@ -79,9 +79,15 @@
                 </div>
                 <div class="options flex">
                     <div class="item flex">
-                        <a href="{{ route('dashboard') }}" target="__blank">
-                            <p><i class='bx bxs-user'></i> <span>Login/Register</span></p>
-                        </a>
+                        @if (Auth::check())
+                            <a href="{{ route('dashboard') }}" target="__blank">
+                                <p><i class='bx bxs-user'></i> <span>{{ Auth::user()->name }}</span></p>
+                            </a>
+                        @else
+                            <a href="{{ route('dashboard') }}" target="__blank">
+                                <p><i class='bx bxs-user'></i> <span>Login/Register</span></p>
+                            </a>
+                        @endif
                     </div>
                 </div>
             </div>
