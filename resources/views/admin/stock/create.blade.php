@@ -195,8 +195,6 @@
                     <div class="flex items-baseline gap-2 col-span-3">
                         <x-input-label for="features"
                             class="w-[9%] after:content-['*'] after:text-red-500">Features</x-input-label>
-                        {{-- <x-text-input type="text " id="features" name="features" required class="w-[91%]"
-                            value="{{ old('features') }}" /> --}}
                         <div class="w-[91%] flex flex-wrap gap-2">
                             <div class="flex gap-2 items-center">
                                 <x-text-input type="checkbox" name="features[]" value="cd_player" id="cd_player"
