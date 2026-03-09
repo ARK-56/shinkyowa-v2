@@ -29,7 +29,7 @@ class FilterOptionsProvider extends ServiceProvider
             'model' => Stock::select('model')->distinct()->get(),
             'bodytype' => BodyType::select('name')->get(),
             'year' => Stock::select('year')->distinct()->orderBy('year', 'ASC')->get(),
-            'country' => Country::select('name')->distinct()->get(),
+            'country' => Country::select('name', 'id')->distinct()->get(),
         ];
 
         View::composer('*', function ($view) use ($filterOptions) {
