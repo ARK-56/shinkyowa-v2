@@ -38,7 +38,7 @@ Route::controller(WebStockPageController::class)->group(function () {
 
     Route::get('/stock-search', 'search');
 
-    Route::get('/send-email', 'storeInquiry');
+    Route::post('/send-email', 'storeInquiry');
 });
 
 Route::controller(WebAjaxController::class)->group(function () {
