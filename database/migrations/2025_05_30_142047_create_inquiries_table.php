@@ -13,13 +13,18 @@ return new class extends Migration
     {
         Schema::create('inquiries', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 120);
-            $table->string('email', 150);
-            $table->string('phone', 15);
             $table->foreignId('country_id')
                 ->nullable()
                 ->constrained('countries')
                 ->onDelete('SET NULL');
+            $table->foreignId('stock_id')
+                ->nullable()
+                ->constrained('stocks')
+                ->onDelete('SET NULL');
+            $table->string('name', 120);
+            $table->string('email', 150);
+            $table->string('phone', 15);
+            $table->string('country', 30);
             $table->text('message');
             $table->ipAddress('ip')
                 ->unique();
