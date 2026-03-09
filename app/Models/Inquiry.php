@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Inquiry extends Model
 {
     protected $fillable = [
+        "country_id",
+        "stock_id",
         "name",
         "email",
         "phone",
-        "country_id",
+        "country",
         "message",
         "ip"
     ];
@@ -19,5 +21,10 @@ class Inquiry extends Model
     public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class);
+    }
+
+    public function stock(): BelongsTo
+    {
+        return  $this->belongsTo(Stock::class);
     }
 }
