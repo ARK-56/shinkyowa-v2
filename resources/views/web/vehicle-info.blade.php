@@ -1,7 +1,5 @@
 @php
     $features = json_decode($vehicle['features'], true);
-@endphp
-@php
     $title = $vehicle['make']['name'] . ' ' . $vehicle['model'] . ' ' . $vehicle['year'];
 @endphp
 
@@ -23,7 +21,7 @@
                         <img src="{{ env('STOCK_IMG_LINK') . $vehicle['thumbnail'] }}" alt="vehicle-image"
                             class="main-image">
                     </div>
-                    @foreach (explode(',', $vehicle['images']) as $image)
+                    @foreach ($vehicle['images'] as $image)
                         <div class="swiper-slide">
                             <img src="{{ env('STOCK_IMG_LINK') . trim($image, '[]""') }}" alt="vehicle-image"
                                 class="main-image">
@@ -39,7 +37,7 @@
                         <img src="{{ env('STOCK_IMG_LINK') . $vehicle['thumbnail'] }}" alt="vehicle-image"
                             class="main-image vehicle-image">
                     </div>
-                    @foreach (explode(',', $vehicle['images']) as $image)
+                    @foreach ($vehicle['images'] as $image)
                         <div class="swiper-slide">
                             <img src="{{ env('STOCK_IMG_LINK') . trim($image, '[]""') }}" alt="vehicle-image"
                                 class="main-image vehicle-image">
@@ -149,7 +147,7 @@
                             </div>
                             <div class="row">
                                 @if ($vehicle['fob'] == 0)
-                                    <p>Inquire</p>
+                                    <label for="destination">Inquire</label>
                                 @else
                                     <p>{{ $vehicle['currency']['symbol'] . number_format($vehicle['fob']) }}</p>
                                 @endif
@@ -170,11 +168,11 @@
                     </div>
                 </div>
                 <div class="action">
-                    @isset($success)
+                    @if(session('success'))
                         <div class="success">
-                            {{ $success }}
+                            {{ session('success') }}
                         </div>
-                    @endisset
+                    @endif
                     @isset($msg)
                         <div class="inquiryCompletionMsg">
                             {{ $msg }}
@@ -184,40 +182,23 @@
                         @csrf
                         <div class="destination">
                             <h3>Step 1: Select Vehicle Destination</h3>
-                            <select name="destination" id="destination" {{ isset($msg) ? 'disabled' : '' }}>
+                            <select name="country_id" id="destination" {{ isset($msg) ? 'disabled' : '' }}>
                                 <option value="" disabled selected>Select Destination</option>
-                                <option value="Jamaica">Jamaica</option>
-                                <option value="Bahamas">Bahamas</option>
-                                <option value="Guyana">Guyana</option>
-                                <option value="Barbados">Barbados</option>
-                                <option value="Kenya">Kenya</option>
-                                <option value="Tanzania">Tanzania</option>
-                                <option value="Ireland">Ireland</option>
-                                <option value="UK">UK</option>
-                                <option value="Pakistan">Pakistan</option>
+                                @foreach ($filterOptions['country'] as $country)
+                                    <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="destination">
                             <h3>Step 2: Vehicle Enquiry Form</h3>
                             <p>Enter your details below to send your enquiry for this vehicle</p>
                             <input type="text" name="stock_id" id="stock_id" placeholder="Stock Id" hidden
-                                value="{{ $vehicle['sid'] }}">
-                            <input type="text" name="full_name" id="full_name" placeholder="Full Name" required {{ isset($msg) ? 'disabled' : '' }}>
-                            <input type="email" name="email_address" id="email" placeholder="Email Address" required {{ isset($msg) ? 'disabled' : '' }}>
-                            <input type="number" name="phone_no" id="phone_no" placeholder="Phone No" {{ isset($msg) ? 'disabled' : '' }}>
-                            <select name="country" id="country" required {{ isset($msg) ? 'disabled' : '' }}>
-                                <option value="" disabled selected>Select Country</option>
-                                <option value="Jamaica">Jamaica</option>
-                                <option value="Bahamas">Bahamas</option>
-                                <option value="Guyana">Guyana</option>
-                                <option value="Barbados">Barbados</option>
-                                <option value="Kenya">Kenya</option>
-                                <option value="Tanzania">Tanzania</option>
-                                <option value="Ireland">Ireland</option>
-                                <option value="UK">UK</option>
-                                <option value="Pakistan">Pakistan</option>
-                            </select>
-                            <textarea name="comment" id="comment" cols="30" rows="10"
+                                value="{{ $vehicle['id'] }}">
+                            <input type="text" name="name" id="full_name" placeholder="Full Name" required {{ isset($msg) ? 'disabled' : '' }}>
+                            <input type="email" name="email" id="email" placeholder="Email Address" required {{ isset($msg) ? 'disabled' : '' }}>
+                            <input type="number" name="phone" id="phone_no" placeholder="Phone No" {{ isset($msg) ? 'disabled' : '' }}>
+                            <input type="text" name="country" id="country" placeholder="Country" {{ isset($msg) ? 'disabled' : '' }}>
+                            <textarea name="message" id="comment" cols="30" rows="10"
                                 placeholder="Enter Comment or any other details you want to provide" required {{ isset($msg) ? 'disabled' : '' }}></textarea>
                         </div>
                         <div class="destination">
