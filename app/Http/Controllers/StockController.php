@@ -74,7 +74,7 @@ class StockController extends Controller
 
         $validated["sid"] = $sid;
         $validated["agent_id"] = Auth::id();
-        $validated['images'] = json_encode($imagePaths);
+        $validated['images'] = $imagePaths;
         $validated['features'] = json_encode($validated['features']);
 
         Stock::create($validated);
@@ -119,42 +119,86 @@ class StockController extends Controller
      */
     public function update(Request $request, $stock)
     {
+        // dd($request);
         $stock = Stock::findOrFail($stock);
 
-        if ($request->hasFile('thumbnail')) {
-            if ($stock->thumbnail) {
-                Storage::delete($stock->thumbnail);
-            }
-            $path = $request->file('thumbnail')->store('thumbnails');
-            $stock->thumbnail = $path;
-        } elseif ($request->has('remove_thumbnail')) {
+        if ($request->remove_thumbnail && Storage::exists($stock->thumbnail)) {
             Storage::delete($stock->thumbnail);
-            $stock->thumbnail = null;
+            $stock->thumbnail = $request->file('thumbnail')->store('thumbnail', 'public');
         }
 
-        $currentImages = json_decode($stock->images) ?? [];
-        $imagesToKeep = [];
+        $newImages = $stock->images ?? [];
 
-        foreach ($currentImages as $image) {
-            if (!in_array($image, $request->input('remove_images', []))) {
-                $imagesToKeep[] = $image;
-            } else {
-                Storage::delete($image);
+        if ($request->remove_images) {
+            foreach ($request->remove_images as $removable) {
+
+                if (Storage::exists($removable)) {
+                    Storage::delete($removable);
+                }
+
+                $newImages = array_diff($newImages, [$removable]);
             }
         }
+
+        $uploadedImages = [];
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
-                $path = $image->store('vehicle-images');
-                $imagesToKeep[] = $path;
+                $uploadedImages[] = $image->store('vehicle-images', 'public');
             }
         }
 
-        $stock->images = json_encode($imagesToKeep);
+        $stock->images = array_merge(array_values($newImages), $uploadedImages);
 
-        $stock->update($request->except(['thumbnail', 'images', 'remove_thumbnail', 'remove_images']));
+        $stock->fill($request->except([
+            'thumbnail',
+            'images',
+            'remove_thumbnail',
+            'remove_images'
+        ]));
+
+        $stock->save();
 
         return redirect()->route('stock.index')->with('success', 'Stock updated successfully');
+
+        //     if ($request->hasFile('thumbnail')) {
+        //         if ($stock->thumbnail && Storage::exists($stock->thumbnail)) {
+        //             Storage::delete($stock->thumbnail);
+        //         }
+
+        //         $stock->thumbnail = $request->file('thumbnail')->store('thumbnails');
+        //     } elseif ($request->has('remove_thumbnail')) {
+        //         if ($stock->thumbnail && Storage::exists($stock->thumbnail)) {
+        //             Storage::delete($stock->thumbnail);
+        //         }
+
+        //         $stock->thumbnail = null;
+        //     }
+
+        //     $currentImages = $stock->images ?? [];
+        //     $removeImages = (array) $request->input('remove_images', []);
+        //     $imagesToKeep = [];
+
+        //     foreach ($currentImages as $image) {
+        //         if (!in_array($image, $removeImages)) {
+        //             $imagesToKeep[] = $image;
+        //         } else {
+        //             Storage::delete($image);
+        //         }
+        //     }
+
+        //     if ($request->hasFile('images')) {
+        //         foreach ((array) $request->file('images') as $image) {
+        //             $imagesToKeep[] = $image->store('vehicle-images');
+        //         }
+        //     }
+
+        //     $stock->images = $imagesToKeep;
+
+        //     $stock->fill($request->except(['thumbnail', 'images', 'remove_thumbnail', 'remove_images']));
+        //     $stock->save();
+
+        //     return redirect()->route('stock.index')->with('success', 'Stock updated successfully');
     }
 
     public function search(Request $request)
