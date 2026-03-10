@@ -1,7 +1,5 @@
 @props(['data'])
 
-{{-- @dd($data) --}}
-
 <div class="item">
     <a href="/vehicle-info/{{ $data['id'] }}">
         <img src="{{ env('STOCK_IMG_LINK') . $data['thumbnail'] }}" alt="stock-image" loading="lazy">
