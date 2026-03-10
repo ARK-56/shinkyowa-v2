@@ -30,7 +30,11 @@ class WebStockPageController extends Controller
             $msg = 'Inquiry Already Submitted, Please wait for reply';
         }
         $vehicle = Stock::with('make', 'bodyType', 'category', 'currency', 'country')->findOrFail($id);
-        return view('web.vehicle-info', compact('vehicle', 'msg'));
+
+        $relatedStock = Stock::whereHas('category', fn($r) => $r->where('name', $vehicle->category->name))
+            ->limit(6)
+            ->get();
+        return view('web.vehicle-info', compact('vehicle', 'msg', 'relatedStock'));
     }
 
     public function filter(Request $request)
