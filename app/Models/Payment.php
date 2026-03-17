@@ -18,6 +18,7 @@ class Payment extends Model
         'file',
         'status',
         'user_id',
+        'viewed'
     ];
 
     public function stock(): BelongsTo
