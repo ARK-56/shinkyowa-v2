@@ -108,7 +108,7 @@
                         <span
                             class="absolute inline-flex h-full w-full z-40 animate-ping rounded-full bg-red-400 opacity-75"></span>
                         <div
-                            class="w-full h-full relative px-2 py-1 bg-red-700 rounded-2xl flex items-center justify-center text-white-900 font-bold mr-2">
+                            class="w-full h-full relative px-2 py-1 bg-red-700 rounded-2xl flex items-center justify-center text-white font-bold mr-2">
                             {{ $ttcount }}
                         </div>
                     </div>
