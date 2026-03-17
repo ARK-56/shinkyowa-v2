@@ -10,6 +10,12 @@ class PendingTTController extends Controller
 {
     public function index()
     {
+        if (Auth::user()->hasRole('admin')) {
+            Payment::where('viewed', false)
+                ->update([
+                    'viewed' => true
+                ]);
+        }
         $payments = Payment::with('customerAccount', 'stock', 'user')
             ->where('status', 'not approved')
             ->when(Auth::user()->hasPermission('view_team_payments'), function ($query) {
