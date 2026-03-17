@@ -66,7 +66,8 @@ class WebStockPageController extends Controller
             $query->where('model', $model);
         }
         if ($stock) {
-            $query->where('sid', $stock);
+            $newId = str_replace('SKI-', '', $stock);
+            $query->where('sid', (int) $newId);
         }
         if ($bodyType) {
             $query->whereHas('bodyType', function ($r) use ($bodyType) {
