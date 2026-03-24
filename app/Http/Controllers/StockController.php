@@ -119,10 +119,10 @@ class StockController extends Controller
      */
     public function update(Request $request, $stock)
     {
-        // dd($request);
+
         $stock = Stock::findOrFail($stock);
 
-        if ($request->remove_thumbnail && Storage::exists($stock->thumbnail)) {
+        if ($request->remove_thumbnail && Storage::disk('public')->exists($stock->thumbnail)) {
             Storage::delete($stock->thumbnail);
             $stock->thumbnail = $request->file('thumbnail')->store('thumbnail', 'public');
         }
