@@ -62,6 +62,9 @@
                     <a href="https://www.linkedin.com/company/shin-kyowa-international" target="__blank">
                         <i class='bx bxl-linkedin'></i>
                     </a>
+                    <a href="https://www.instagram.com/shinkyowainternational" target="__blank">
+                        <i class='bx bxl-instagram'></i>
+                    </a>
                 </div>
             </div>
         </div>
@@ -172,6 +175,9 @@
                             class='bx bxl-facebook'></i></a>
                     <a href="https://www.linkedin.com/company/shin-kyowa-international/" target="__blank">
                         <i class='bx bxl-linkedin'></i>
+                    </a>
+                    <a href="https://www.instagram.com/shinkyowainternational" target="__blank">
+                        <i class='bx bxl-instagram'></i>
                     </a>
                 </p>
             </div>
