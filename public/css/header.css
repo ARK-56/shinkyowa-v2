@@ -9,6 +9,10 @@ header .upp-header {
     font-weight: bold;
 }
 
+header .info {
+    flex: 1;
+}
+
 header .info .item {
     margin-right: 8px;
 }
