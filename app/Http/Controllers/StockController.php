@@ -119,7 +119,6 @@ class StockController extends Controller
      */
     public function update(Request $request, $stock)
     {
-
         $stock = Stock::findOrFail($stock);
 
         if ($request->remove_thumbnail && Storage::disk('public')->exists($stock->thumbnail)) {
@@ -160,45 +159,6 @@ class StockController extends Controller
         $stock->save();
 
         return redirect()->route('stock.index')->with('success', 'Stock updated successfully');
-
-        //     if ($request->hasFile('thumbnail')) {
-        //         if ($stock->thumbnail && Storage::exists($stock->thumbnail)) {
-        //             Storage::delete($stock->thumbnail);
-        //         }
-
-        //         $stock->thumbnail = $request->file('thumbnail')->store('thumbnails');
-        //     } elseif ($request->has('remove_thumbnail')) {
-        //         if ($stock->thumbnail && Storage::exists($stock->thumbnail)) {
-        //             Storage::delete($stock->thumbnail);
-        //         }
-
-        //         $stock->thumbnail = null;
-        //     }
-
-        //     $currentImages = $stock->images ?? [];
-        //     $removeImages = (array) $request->input('remove_images', []);
-        //     $imagesToKeep = [];
-
-        //     foreach ($currentImages as $image) {
-        //         if (!in_array($image, $removeImages)) {
-        //             $imagesToKeep[] = $image;
-        //         } else {
-        //             Storage::delete($image);
-        //         }
-        //     }
-
-        //     if ($request->hasFile('images')) {
-        //         foreach ((array) $request->file('images') as $image) {
-        //             $imagesToKeep[] = $image->store('vehicle-images');
-        //         }
-        //     }
-
-        //     $stock->images = $imagesToKeep;
-
-        //     $stock->fill($request->except(['thumbnail', 'images', 'remove_thumbnail', 'remove_images']));
-        //     $stock->save();
-
-        //     return redirect()->route('stock.index')->with('success', 'Stock updated successfully');
     }
 
     public function search(Request $request)
