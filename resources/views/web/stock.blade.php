@@ -176,7 +176,8 @@
             <x-vehicle-listing-card :img="$item['thumbnail']" :id="$item['id']" :stockId="$item['sid']"
                 :make="$item['make']['name']" :model="$item['model']" :year="$item['year']" :mileage="$item['mileage']"
                 :chassis="$item['chassis']" :doors="$item['doors']" :transmission="$item['transmission']"
-                :features="$item['features']" :fob="$item['fob']" :code="$item['currency']->code" :symbol="$item['currency']->symbol" />
+                :features="$item['features']" :fob="$item['fob']" :code="$item['currency']->code"
+                :symbol="$item['currency']->symbol" />
         @endforeach
     </div>
     <div class="pagination">
@@ -253,6 +254,11 @@
                     }
                 };
                 xhr.send();
+            });
+        document
+            .getElementById("wishlist")
+            .addEventListener("click", function () {
+                
             });
     });
 </script>
