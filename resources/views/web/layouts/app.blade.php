@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="{{ asset('favicon.ico') }}">
+    <link rel="icon" href="./favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
         content="Shinkyowa International exports high-quality used cars from Japan to Kenya, Tanzania, Jamaica, Bahamas, Guyana, Barbados, UK, Ireland, and Pakistan. Trustworthy service, competitive prices">
