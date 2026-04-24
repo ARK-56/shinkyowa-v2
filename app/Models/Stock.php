@@ -27,6 +27,7 @@ class Stock extends Model
         'fuel',
         'category_id',
         'country_id',
+        'engine',
         'color',
         'features',
         'customer_account_id',
@@ -95,5 +96,10 @@ class Stock extends Model
     public function inquiry(): HasMany
     {
         return $this->hasMany(Inquiry::class);
+    }
+
+    public function wishlist(): HasMany
+    {
+        return $this->hasMany(Wishlist::class);
     }
 }

@@ -158,6 +158,13 @@
                             value="{{ old('mileage', $stock['mileage']) }}" />
                         <x-input-error :messages="$errors->get('mileage')" class="mt-2" />
                     </div>
+                    <div class="flex items-center gap-2">
+                        <x-input-label for="engine"
+                            class="w-[32%] after:content-['*'] after:text-red-500">Engine</x-input-label>
+                        <x-text-input type="text " id="engine" name="engine" required class="w-4/5"
+                            value="{{ old('engine', $stock['engine']) }}" />
+                        <x-input-error :messages="$errors->get('engine')" class="mt-2" />
+                    </div>
                     <div class="flex items-center gap-1">
                         <x-input-label for="transmission"
                             class="w-[38%] after:content-['*'] after:text-red-500">Transmission</x-input-label>

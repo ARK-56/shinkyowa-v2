@@ -98,6 +98,10 @@
                         <dd class="mt-1 text-sm text-gray-900">{{ $stock['mileage'] }}</dd>
                     </div>
                     <div class="py-2">
+                        <dt class="text-sm font-medium text-gray-500">Engine</dt>
+                        <dd class="mt-1 text-sm text-gray-900">{{ $stock['engine'] }}</dd>
+                    </div>
+                    <div class="py-2">
                         <dt class="text-sm font-medium text-gray-500">Transmission</dt>
                         <dd class="mt-1 text-sm text-gray-900">{{ ucfirst($stock['transmission']) }}</dd>
                     </div>

@@ -56,6 +56,7 @@ return new class extends Migration
                 ->nullable()
                 ->constrained('countries')
                 ->onDelete('set null');
+            $table->integer('engine');
             $table->string('color')
                 ->nullable();
             $table->text('features');
