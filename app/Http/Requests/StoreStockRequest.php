@@ -43,7 +43,7 @@ class StoreStockRequest extends FormRequest
 
             // Vehicle Specs Section
             'mileage' => 'required|string|max:255',
-            'engine' => 'required|integer|max:10',
+            'engine' => 'required|integer',
             'transmission' => [
                 'required',
                 Rule::in(['manual', 'automatic'])
