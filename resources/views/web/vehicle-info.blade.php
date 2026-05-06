@@ -130,7 +130,7 @@
                                 <p>Engine</p>
                             </div>
                             <div class="row">
-                                <p>{{ $vehicle['engine'] ?? '' }}</p>
+                                <p>{{ $vehicle['engine'] . 'cc' ?? '' }}</p>
                             </div>
                         </div>
                         <div class="col flex">
