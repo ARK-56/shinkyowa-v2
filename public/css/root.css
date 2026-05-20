@@ -223,3 +223,45 @@ dialog .message>button {
     color: white;
     letter-spacing: 1px;
 }
+
+.popup {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    z-index: 1;
+}
+
+.popup .close {
+    all: unset;
+    top: 10px;
+    right: 10px;
+    background-color: var(--secondary-color);
+    padding: 10px;
+    color: white;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.popup .message {
+    width: 60%;
+    padding: 10px;
+    background-color: white;
+    user-select: none;
+}
+
+.popup .message h1 {
+    color: var(--secondary-color);
+}
+
+.popup .message p {
+    margin-top: 10px;
+}

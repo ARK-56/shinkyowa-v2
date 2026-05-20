@@ -374,8 +374,35 @@
             </form>
         </div>
     </dialog>
+    <div class="popup" id="popup">
+        <button class="close" onclick="toggleDisplay()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 6 6 18" />
+                <path d="m6 6 12 12" />
+            </svg>
+        </button>
+        <div class="message">
+            <h1>POSSIBLE SHIPPING DELAYS – Updated April 3, 2026</h1>
+            <p>
+                Ongoing developments in the Middle East may result in delays to certain ocean freight shipments.
+                At this time, the specific regions and expected timeframes affected have not been fully determined;
+                however,
+                vehicle delivery schedules may be subject to change.
+                We are actively coordinating with our shipping partners and will continue to share updates as new
+                information becomes available.
+            </p>
+        </div>
+    </div>
     @stack('js')
     <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+        function toggleDisplay() {
+            let popup = document.getElementById('popup');
+
+            popup.style.display = "none";
+        }
+    </script>
 </body>
 
 </html>
