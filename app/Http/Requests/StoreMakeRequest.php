@@ -24,7 +24,7 @@ class StoreMakeRequest extends FormRequest
     {
         return [
             'image' => ['required', 'max:2048'], // 2MB max
-            'name' => ['required', 'string', 'max:100'],
+            'name' => ['required', 'string', 'max:100', 'exists:makes,name'],
         ];
     }
 
