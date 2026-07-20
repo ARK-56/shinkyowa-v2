@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Stock;
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
 
 class WebAjaxController extends Controller
@@ -12,7 +13,7 @@ class WebAjaxController extends Controller
         $make = $request->input('make');
         $models = Stock::whereHas('make', function ($r) use ($make) {
             $r->where('name', $make);
-        })->distinct()->pluck('model');
+        })->orderBy('make')->distinct()->pluck('model');
 
         return response()->json($models);
     }
@@ -21,7 +22,7 @@ class WebAjaxController extends Controller
     {
         $model = $request->input('model');
         $result = [];
-        $fueltype = Stock::where('model', $model)->pluck('fuel');
+        $fueltype = Stock::where('model', $model)->orderBy('fuel')->pluck('fuel');
         foreach ($fueltype as $fuel) {
             if (in_array($fueltype, $fuel) == null) {
                 array_push($result, $fueltype);
@@ -37,5 +38,17 @@ class WebAjaxController extends Controller
         $result = Stock::where('model', $model)->orderBy('year', 'ASC')->distinct()->pluck('year');
 
         return response()->json($result);
+    }
+
+    public function addWishlist(Request $request)
+    {
+        $validated = $request->validate([
+            'customer_id' => ['required', 'in:users.id'],
+            'stock_id' => ['required', 'in:stocks.id'],
+        ]);
+
+        Wishlist::create($validated);
+
+        return response()->json();
     }
 }
