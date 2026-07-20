@@ -13,7 +13,7 @@ class WebAjaxController extends Controller
         $make = $request->input('make');
         $models = Stock::whereHas('make', function ($r) use ($make) {
             $r->where('name', $make);
-        })->orderBy('make')->distinct()->pluck('model');
+        })->distinct()->pluck('model')->orderBy('model');
 
         return response()->json($models);
     }
