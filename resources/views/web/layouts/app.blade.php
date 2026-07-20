@@ -350,7 +350,7 @@
             </div>
         </div>
         <div class="container flex">
-            <p>Japanese Used Cars - Shinkyowa International © Copyright 2024. All rights reserved</p>
+            <p>Japanese Used Cars - Shinkyowa International © Copyright 2026. All rights reserved</p>
             <p>Sitemap - Terms - Privacy Policy - Shipping Schedule - Disclaimer</p>
         </div>
     </footer>
