@@ -22,7 +22,7 @@ class AllMakeProvider extends ServiceProvider
     public function boot(): void
     {
         $allMake = cache()->remember('makes', 60, function () {
-            return Make::all();
+            return Make::orderBy('name');
         });
 
         View::composer('*', function ($view) use ($allMake) {
