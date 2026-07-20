@@ -19,6 +19,8 @@ class WebAjaxController extends Controller
             ->distinct()
             ->orderBy('model')
             ->pluck('model');
+
+        return response()->json($models);
     }
 
     public function getFueltype(Request $request)
