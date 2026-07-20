@@ -11,11 +11,14 @@ class WebAjaxController extends Controller
     public function getModels(Request $request)
     {
         $make = $request->input('make');
-        $models = Stock::whereHas('make', function ($r) use ($make) {
-            $r->where('name', $make);
-        })->distinct()->pluck('model')->orderBy('model');
 
-        return response()->json($models);
+        $models = Stock::whereHas('make', function ($q) use ($make) {
+            $q->where('name', $make);
+        })
+            ->select('model')
+            ->distinct()
+            ->orderBy('model')
+            ->pluck('model');
     }
 
     public function getFueltype(Request $request)
