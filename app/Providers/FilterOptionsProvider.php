@@ -25,9 +25,9 @@ class FilterOptionsProvider extends ServiceProvider
     public function boot(): void
     {
         $filterOptions = [
-            'make' => Make::distinct()->get(),
-            'model' => Stock::select('model')->distinct()->get(),
-            'bodytype' => BodyType::select('name')->get(),
+            'make' => Make::orderBy('name')->get(),
+            'model' => Stock::select('model')->orderBy('model')->distinct()->get(),
+            'bodytype' => BodyType::select('name')->orderBy('name')->get(),
             'year' => Stock::select('year')->distinct()->orderBy('year', 'ASC')->get(),
             'country' => Country::select('name', 'id')->distinct()->get(),
         ];
