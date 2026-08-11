@@ -33,6 +33,12 @@
         <a href="/filter?yearfrom=2024">
             <x-img src="{{ env('IMAGE_API_URL') . 'images/offers/offer-three.gif' }}" />
         </a>
+        <a href="/stock">
+            <x-img src="{{ env('IMAGE_API_URL') . 'images/offers/offer-four.gif' }}" />
+        </a>
+        <a href="/filter?yearfrom=2026">
+            <x-img src="{{ env('IMAGE_API_URL') . 'images/offers/offer-five.gif' }}" />
+        </a>
     </div>
     <hr>
 </aside>
