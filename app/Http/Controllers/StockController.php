@@ -156,6 +156,7 @@ class StockController extends Controller
             'remove_images'
         ]));
 
+        dd($stock);
         $stock->save();
 
         return redirect()->route('stock.index')->with('success', 'Stock updated successfully');
